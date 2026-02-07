@@ -37,7 +37,8 @@ const cursorLineHighlight = ViewPlugin.fromClass(
         tr.effects.some(e => e.is(toggleFlowingMode))
       );
       
-      if (stateChanged || update.docChanged || update.selectionSet || update.viewportChanged) {
+      // 只在必要时更新装饰器，避免不必要的重绘
+      if (stateChanged || update.selectionSet || (update.docChanged && update.selectionSet)) {
         this.decorations = this.buildDecorations(update.view);
       }
     }

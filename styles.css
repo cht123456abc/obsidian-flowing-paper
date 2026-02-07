@@ -5,7 +5,7 @@
   background-color: rgba(59, 130, 246, 0.15) !important;
   border-left: 3px solid rgba(59, 130, 246, 0.6);
   padding-left: 8px;
-  transition: background-color 0.2s ease-out;
+  /* 移除 transition，避免闪烁 */
 }
 
 /* 状态栏样式 */
@@ -26,21 +26,7 @@ body.flowing-paper-mode-active .cm-content {
   caret-color: var(--text-accent);
 }
 
-/* 动画效果 */
-@keyframes flowing-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(-2px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.flowing-paper-active-line {
-  animation: flowing-fade-in 0.15s ease-out;
-}
+/* 移除动画效果，避免每次更新时闪烁 */
 
 /* 深色主题适配 */
 .theme-dark .flowing-paper-active-line {
