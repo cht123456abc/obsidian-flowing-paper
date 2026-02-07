@@ -70,6 +70,16 @@ npm run dev
 npm run build
 ```
 
+## Release 发布
+
+本项目使用 GitHub Actions 自动发布。详细步骤请查看 [RELEASE.md](RELEASE.md)。
+
+快速发布：
+```bash
+npm version patch  # 更新版本号
+git push && git push --tags  # 推送并触发自动发布
+```
+
 ## Tech Stack 技术栈
 
 - TypeScript
