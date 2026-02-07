@@ -48,8 +48,26 @@ export class FlowingPaperSettingTab extends PluginSettingTab {
           await this.plugin.saveSettings();
         }));
 
+    containerEl.createEl('h3', { text: 'Hotkey Settings 快捷键设置' });
+    containerEl.createEl('p', { 
+      text: 'To customize the hotkey, go to: Settings → Hotkeys → Search "Flowing Paper Mode"',
+      cls: 'setting-item-description'
+    });
+    containerEl.createEl('p', { 
+      text: '自定义快捷键：设置 → 快捷键 → 搜索"Flowing Paper Mode"',
+      cls: 'setting-item-description'
+    });
+    containerEl.createEl('p', { 
+      text: '💡 Default: Cmd/Ctrl + Shift + Z (You can change it in Hotkeys settings)',
+      cls: 'setting-item-description'
+    });
+    containerEl.createEl('p', { 
+      text: '💡 默认：Cmd/Ctrl + Shift + Z（可在快捷键设置中修改）',
+      cls: 'setting-item-description'
+    });
+
     containerEl.createEl('h3', { text: 'Usage 使用说明' });
-    containerEl.createEl('p', { text: '• Press Cmd/Ctrl + Shift + Z to toggle mode 切换沉思模式' });
+    containerEl.createEl('p', { text: '• Press your custom hotkey or click status bar to toggle 使用快捷键或点击状态栏切换' });
     containerEl.createEl('p', { text: '• In Flowing mode, cursor stays fixed and content flows down 光标保持固定，内容向下流动' });
     containerEl.createEl('p', { text: '• Blue highlight bar marks current editing position 蓝色高亮条标记当前编辑位置' });
   }

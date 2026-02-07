@@ -17,6 +17,16 @@
   font-weight: 600;
 }
 
+/* 状态栏可点击样式 */
+.status-bar-item.mod-clickable {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.status-bar-item.mod-clickable:hover {
+  opacity: 0.8;
+}
+
 /* 编辑器在沉思模式下的样式 */
 body.flowing-paper-mode-active .cm-editor {
   cursor: text;

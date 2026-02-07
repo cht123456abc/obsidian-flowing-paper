@@ -70,8 +70,12 @@ export default class FlowingPaperPlugin extends Plugin {
   async onload() {
     await this.loadSettings();
 
-    // 添加状态栏项
+    // 添加状态栏项（支持点击切换）
     this.statusBarItem = this.addStatusBarItem();
+    this.statusBarItem.addClass('mod-clickable');
+    this.statusBarItem.addEventListener('click', () => {
+      this.toggleFlowingMode();
+    });
     this.updateStatusBar();
 
     // 注册编辑器扩展
@@ -103,12 +107,11 @@ export default class FlowingPaperPlugin extends Plugin {
       ]))
     ]);
 
-    // 添加切换命令
+    // 添加切换命令（快捷键在 Obsidian 设置中配置）
     this.addCommand({
       id: 'toggle-flowing-paper-mode',
       name: 'Toggle Flowing Paper Mode 切换沉思模式',
-      callback: () => this.toggleFlowingMode(),
-      hotkeys: [{ modifiers: ['Mod', 'Shift'], key: 'z' }]
+      callback: () => this.toggleFlowingMode()
     });
 
     // 添加设置面板
