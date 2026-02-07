@@ -38,7 +38,7 @@
 
 ## 使用方法
 
-1. **切换模式**：使用快捷键 `Ctrl/Cmd + Shift + F` 或命令面板搜索 "Toggle Flowing Paper Mode"
+1. **切换模式**：使用快捷键 `Ctrl/Cmd + Shift + Z` 或命令面板搜索 "Toggle Flowing Paper Mode"
 2. **开始写作**：在沉思模式下，按回车键时光标会保持在当前位置，内容向下流动
 3. **自定义设置**：在插件设置中调整高亮颜色、透明度等
 

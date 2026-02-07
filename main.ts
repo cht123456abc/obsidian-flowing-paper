@@ -106,9 +106,9 @@ export default class FlowingPaperPlugin extends Plugin {
     // 添加切换命令
     this.addCommand({
       id: 'toggle-flowing-paper-mode',
-      name: '切换沉思模式 (Toggle Flowing Paper Mode)',
+      name: 'Toggle Flowing Paper Mode 切换沉思模式',
       callback: () => this.toggleFlowingMode(),
-      hotkeys: [{ modifiers: ['Mod', 'Shift'], key: 'f' }]
+      hotkeys: [{ modifiers: ['Mod', 'Shift'], key: 'z' }]
     });
 
     // 添加设置面板
@@ -139,20 +139,20 @@ export default class FlowingPaperPlugin extends Plugin {
     }
     
     if (this.isFlowingMode) {
-      new Notice('✨ 沉思模式已开启 - Flowing Paper Mode ON');
+      new Notice('✨ Flowing Paper Mode ON 沉思模式已开启');
       document.body.addClass('flowing-paper-mode-active');
     } else {
-      new Notice('📝 传统编辑模式 - Normal Mode');
+      new Notice('📝 Normal Mode 传统编辑模式');
       document.body.removeClass('flowing-paper-mode-active');
     }
   }
 
   updateStatusBar() {
     if (this.isFlowingMode) {
-      this.statusBarItem.setText('✨ 沉思模式');
+      this.statusBarItem.setText('✨ Flowing 沉思');
       this.statusBarItem.addClass('flowing-mode-active');
     } else {
-      this.statusBarItem.setText('📝 编辑');
+      this.statusBarItem.setText('📝 Normal 编辑');
       this.statusBarItem.removeClass('flowing-mode-active');
     }
   }

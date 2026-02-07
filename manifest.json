@@ -1,9 +1,9 @@
 {
   "id": "flowing-paper-mode",
-  "name": "Flowing Paper Mode (沉思模式)",
+  "name": "Flowing Paper Mode 沉思模式",
   "version": "1.0.0",
   "minAppVersion": "0.15.0",
-  "description": "让思绪沉淀，让当下永驻 - A typewriter-style editing mode where the cursor stays fixed and content flows down",
+  "description": "A typewriter-style editing mode where the cursor stays fixed and content flows down 让思绪沉淀，让当下永驻",
   "author": "Your Name",
   "authorUrl": "https://github.com/yourusername",
   "isDesktopOnly": false
