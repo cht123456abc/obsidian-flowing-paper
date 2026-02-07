@@ -1,7 +1,7 @@
-/* 沉思模式样式 - Flowing Paper Mode Styles */
+/* 沉纸模式样式 - Sinking Paper Mode Styles */
 
 /* 当前行高亮 */
-.flowing-paper-active-line {
+.sinking-paper-active-line {
   background-color: rgba(59, 130, 246, 0.15) !important;
   border-left: 3px solid rgba(59, 130, 246, 0.6);
   padding-left: 8px;
@@ -9,7 +9,7 @@
 }
 
 /* 状态栏样式 */
-.status-bar-item.flowing-mode-active {
+.status-bar-item.sinking-mode-active {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
   padding: 2px 8px;
@@ -27,19 +27,19 @@
   opacity: 0.8;
 }
 
-/* 编辑器在沉思模式下的样式 */
-body.flowing-paper-mode-active .cm-editor {
+/* 编辑器在沉纸模式下的样式 */
+body.sinking-paper-mode-active .cm-editor {
   cursor: text;
 }
 
-body.flowing-paper-mode-active .cm-content {
+body.sinking-paper-mode-active .cm-content {
   caret-color: var(--text-accent);
 }
 
 /* 移除动画效果，避免每次更新时闪烁 */
 
 /* 深色主题适配 */
-.theme-dark .flowing-paper-active-line {
+.theme-dark .sinking-paper-active-line {
   background-color: rgba(59, 130, 246, 0.2) !important;
   border-left-color: rgba(59, 130, 246, 0.8);
 }

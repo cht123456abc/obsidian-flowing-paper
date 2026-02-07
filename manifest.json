@@ -1,10 +1,10 @@
 {
-  "id": "flowing-paper-mode",
-  "name": "Flowing Paper Mode 沉思模式",
+  "id": "sinking-paper-mode",
+  "name": "Sinking Paper Mode 沉纸模式",
   "version": "1.0.0",
   "minAppVersion": "0.15.0",
-  "description": "A typewriter-style editing mode where the cursor stays fixed and content flows down 让思绪沉淀，让当下永驻",
-  "author": "Your Name",
-  "authorUrl": "https://github.com/yourusername",
+  "description": "Write with a fixed cursor as content sinks down like paper in a typewriter 光标固定，内容下沉，如打字机般的写作体验",
+  "author": "Hentiflo",
+  "authorUrl": "https://github.com/hentiflo",
   "isDesktopOnly": false
 }

@@ -1,10 +1,10 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
-import FlowingPaperPlugin from './main';
+import SinkingPaperPlugin from './main';
 
-export class FlowingPaperSettingTab extends PluginSettingTab {
-  plugin: FlowingPaperPlugin;
+export class SinkingPaperSettingTab extends PluginSettingTab {
+  plugin: SinkingPaperPlugin;
 
-  constructor(app: App, plugin: FlowingPaperPlugin) {
+  constructor(app: App, plugin: SinkingPaperPlugin) {
     super(app, plugin);
     this.plugin = plugin;
   }
@@ -13,7 +13,7 @@ export class FlowingPaperSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl('h2', { text: 'Flowing Paper Mode Settings 沉思模式设置' });
+    containerEl.createEl('h2', { text: 'Sinking Paper Mode Settings 沉纸模式设置' });
 
     new Setting(containerEl)
       .setName('Highlight Color 高亮颜色')
@@ -50,25 +50,25 @@ export class FlowingPaperSettingTab extends PluginSettingTab {
 
     containerEl.createEl('h3', { text: 'Hotkey Settings 快捷键设置' });
     containerEl.createEl('p', { 
-      text: 'To customize the hotkey, go to: Settings → Hotkeys → Search "Flowing Paper Mode"',
+      text: 'To customize the hotkey, go to: Settings → Hotkeys → Search "Sinking Paper Mode"',
       cls: 'setting-item-description'
     });
     containerEl.createEl('p', { 
-      text: '自定义快捷键：设置 → 快捷键 → 搜索"Flowing Paper Mode"',
+      text: '自定义快捷键：设置 → 快捷键 → 搜索"Sinking Paper Mode"',
       cls: 'setting-item-description'
     });
     containerEl.createEl('p', { 
-      text: '💡 Default: Cmd/Ctrl + Shift + Z (You can change it in Hotkeys settings)',
+      text: '💡 Default: Cmd/Ctrl + Shift + S (You can change it in Hotkeys settings)',
       cls: 'setting-item-description'
     });
     containerEl.createEl('p', { 
-      text: '💡 默认：Cmd/Ctrl + Shift + Z（可在快捷键设置中修改）',
+      text: '💡 默认：Cmd/Ctrl + Shift + S（可在快捷键设置中修改）',
       cls: 'setting-item-description'
     });
 
     containerEl.createEl('h3', { text: 'Usage 使用说明' });
     containerEl.createEl('p', { text: '• Press your custom hotkey or click status bar to toggle 使用快捷键或点击状态栏切换' });
-    containerEl.createEl('p', { text: '• In Flowing mode, cursor stays fixed and content flows down 光标保持固定，内容向下流动' });
+    containerEl.createEl('p', { text: '• In Sinking mode, cursor stays fixed and content sinks down 光标保持固定，内容向下沉' });
     containerEl.createEl('p', { text: '• Blue highlight bar marks current editing position 蓝色高亮条标记当前编辑位置' });
   }
 }

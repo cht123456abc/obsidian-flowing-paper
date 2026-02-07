@@ -1,80 +1,95 @@
-# Flowing Paper Mode (沉思模式) - Obsidian Plugin
+# Sinking Paper Mode 沉纸模式 - Obsidian Plugin
 
-> 让思绪沉淀，让当下永驻  
-> Where thoughts sink and the present stays
+> Write with a fixed cursor as content sinks down like paper in a typewriter  
+> 光标固定，内容下沉，如打字机般的写作体验
 
-## 功能介绍
+## Features 功能介绍
 
-这是一个创新的 Markdown 编辑模式插件，改变了传统的编辑体验：
+An innovative Markdown editing mode that transforms the traditional writing experience:
 
-- **光标固定**：按回车时，光标始终保持在当前行行首
-- **内容流动**：当前行内容向下沉淀，就像打字机上的纸张向下滚动
-- **视觉锚点**：淡蓝色高亮条标记当前编辑位置，动态跟随光标
-- **快速切换**：随时在传统模式和沉思模式之间切换
+- **Fixed Cursor 光标固定**：Cursor stays at the current line when pressing Enter
+- **Sinking Content 内容下沉**：Current line content sinks down like paper scrolling in a typewriter
+- **Visual Anchor 视觉锚点**：Blue highlight bar marks the current editing position
+- **Quick Toggle 快速切换**：Switch between normal and sinking mode anytime
 
-## 适用场景
+## Use Cases 适用场景
 
-- 💭 **思维流捕捉**：快速记录连续的想法，注意力始终在"当下"
-- ✍️ **意识流写作**：减少视线移动，保持心流状态
-- 🧘 **冥想日记**：每次回车代表一个思考节点的完成
-- 💬 **自我对话**：模拟对话式的思考过程
+- 💭 **Thought Capture 思维流捕捉**：Quickly record continuous thoughts, focus on the present
+- ✍️ **Stream Writing 意识流写作**：Reduce eye movement, maintain flow state
+- 🧘 **Meditation Journal 冥想日记**：Each Enter represents completion of a thought node
+- 💬 **Self Dialogue 自我对话**：Simulate conversational thinking process
 
-## 安装方法
+## Installation 安装方法
 
-### 方法一：手动安装（开发版）
+### Method 1: Manual Installation (Development Version) 手动安装（开发版）
 
-1. 下载此仓库的所有文件
-2. 将 `obsidian-flowing-paper` 文件夹复制到你的 Obsidian vault 的 `.obsidian/plugins/` 目录下
-3. 在文件夹内运行：
+1. Download all files from this repository
+2. Copy the folder to your Obsidian vault's `.obsidian/plugins/` directory
+3. Run in the folder:
    ```bash
    npm install
    npm run build
    ```
-4. 在 Obsidian 设置中启用 "Flowing Paper Mode" 插件
+4. Enable "Sinking Paper Mode" in Obsidian settings
 
-### 方法二：从社区插件安装（待发布）
+### Method 2: Community Plugins (Coming Soon) 社区插件（即将发布）
 
-在 Obsidian 的社区插件市场搜索 "Flowing Paper Mode"
+Search for "Sinking Paper Mode" in Obsidian's community plugin marketplace
 
-## 使用方法
+## Usage 使用方法
 
-1. **切换模式**：使用快捷键 `Ctrl/Cmd + Shift + Z` 或命令面板搜索 "Toggle Flowing Paper Mode"
-2. **开始写作**：在沉思模式下，按回车键时光标会保持在当前位置，内容向下流动
-3. **自定义设置**：在插件设置中调整高亮颜色、透明度等
+1. **Toggle Mode 切换模式**：
+   - Use hotkey `Ctrl/Cmd + Shift + S` (customizable in Settings → Hotkeys)
+   - Or click the status bar icon
+   - Or use command palette: "Toggle Sinking Paper Mode"
 
-## 设置选项
+2. **Start Writing 开始写作**：
+   - In sinking mode, pressing Enter keeps cursor fixed while content sinks down
+   - Press Backspace on empty line to pull content up
 
-- **高亮颜色**：自定义当前行的高亮颜色
-- **高亮透明度**：调整高亮条的透明度（0-1）
-- **启用音效**：按回车时播放打字机音效（开发中）
+3. **Customize Settings 自定义设置**：
+   - Adjust highlight color and opacity in plugin settings
 
-## 开发
+## Settings 设置选项
+
+- **Highlight Color 高亮颜色**：Customize current line highlight color
+- **Highlight Opacity 高亮透明度**：Adjust highlight bar opacity (0-1)
+- **Enable Sound 启用音效**：Play typewriter sound on Enter (coming soon)
+- **Hotkey 快捷键**：Customize in Settings → Hotkeys
+
+## Development 开发
 
 ```bash
-# 安装依赖
+# Install dependencies 安装依赖
 npm install
 
-# 开发模式（自动重新编译）
+# Development mode (auto-recompile) 开发模式
 npm run dev
 
-# 生产构建
+# Production build 生产构建
 npm run build
 ```
 
-## 技术栈
+## Tech Stack 技术栈
 
 - TypeScript
 - Obsidian API
 - CodeMirror 6
 
-## 贡献
+## Contributing 贡献
 
-欢迎提交 Issue 和 Pull Request！
+Issues and Pull Requests are welcome!
 
-## 许可证
+## License 许可证
 
 MIT License
 
-## 致谢
+## Author 作者
+
+**Hentiflo**
+
+## Acknowledgments 致谢
+
+Inspired by the typewriter's fixed cursor experience and the need for stream-of-consciousness writing.
 
 灵感来源于打字机的固定光标体验和意识流写作的需求。

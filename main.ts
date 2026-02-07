@@ -1,20 +1,20 @@
 import { Plugin, MarkdownView, Notice, editorViewField } from 'obsidian';
-import { FlowingPaperSettingTab } from './settings';
-import { FlowingPaperSettings, DEFAULT_SETTINGS } from './types';
+import { SinkingPaperSettingTab } from './settings';
+import { SinkingPaperSettings, DEFAULT_SETTINGS } from './types';
 import { EditorView, ViewPlugin, ViewUpdate, Decoration, DecorationSet, keymap } from '@codemirror/view';
 import { StateField, StateEffect, Prec, Transaction } from '@codemirror/state';
 
 // 定义状态效果
-const toggleFlowingMode = StateEffect.define<boolean>();
+const toggleSinkingMode = StateEffect.define<boolean>();
 
 // 定义状态字段来跟踪模式
-const flowingModeState = StateField.define<boolean>({
+const sinkingModeState = StateField.define<boolean>({
   create() {
     return false;
   },
   update(value: boolean, tr: Transaction) {
     for (let effect of tr.effects) {
-      if (effect.is(toggleFlowingMode)) {
+      if (effect.is(toggleSinkingMode)) {
         return effect.value;
       }
     }
@@ -34,7 +34,7 @@ const cursorLineHighlight = ViewPlugin.fromClass(
     update(update: ViewUpdate) {
       // 检测状态变化、文档变化、光标移动或视口变化
       const stateChanged = update.transactions.some(tr => 
-        tr.effects.some(e => e.is(toggleFlowingMode))
+        tr.effects.some(e => e.is(toggleSinkingMode))
       );
       
       // 只在必要时更新装饰器，避免不必要的重绘
@@ -44,14 +44,14 @@ const cursorLineHighlight = ViewPlugin.fromClass(
     }
 
     buildDecorations(view: EditorView): DecorationSet {
-      const isFlowing = view.state.field(flowingModeState, false);
-      if (!isFlowing) return Decoration.none;
+      const isSinking = view.state.field(sinkingModeState, false);
+      if (!isSinking) return Decoration.none;
 
       const cursor = view.state.selection.main.head;
       const line = view.state.doc.lineAt(cursor);
       
       const decoration = Decoration.line({
-        attributes: { class: 'flowing-paper-active-line' }
+        attributes: { class: 'sinking-paper-active-line' }
       });
 
       return Decoration.set([decoration.range(line.from)]);
@@ -62,9 +62,9 @@ const cursorLineHighlight = ViewPlugin.fromClass(
   }
 );
 
-export default class FlowingPaperPlugin extends Plugin {
-  settings: FlowingPaperSettings;
-  private isFlowingMode = false;
+export default class SinkingPaperPlugin extends Plugin {
+  settings: SinkingPaperSettings;
+  private isSinkingMode = false;
   private statusBarItem: HTMLElement;
 
   async onload() {
@@ -74,19 +74,19 @@ export default class FlowingPaperPlugin extends Plugin {
     this.statusBarItem = this.addStatusBarItem();
     this.statusBarItem.addClass('mod-clickable');
     this.statusBarItem.addEventListener('click', () => {
-      this.toggleFlowingMode();
+      this.toggleSinkingMode();
     });
     this.updateStatusBar();
 
     // 注册编辑器扩展
     this.registerEditorExtension([
-      flowingModeState,
+      sinkingModeState,
       cursorLineHighlight,
       Prec.highest(keymap.of([
         {
           key: 'Enter',
           run: (view: EditorView) => {
-            if (!this.isFlowingMode) return false;
+            if (!this.isSinkingMode) return false;
 
             const cursor = view.state.selection.main.head;
             const line = view.state.doc.lineAt(cursor);
@@ -107,7 +107,7 @@ export default class FlowingPaperPlugin extends Plugin {
         {
           key: 'Backspace',
           run: (view: EditorView) => {
-            if (!this.isFlowingMode) return false;
+            if (!this.isSinkingMode) return false;
 
             const cursor = view.state.selection.main.head;
             const line = view.state.doc.lineAt(cursor);
@@ -142,13 +142,13 @@ export default class FlowingPaperPlugin extends Plugin {
 
     // 添加切换命令（快捷键在 Obsidian 设置中配置）
     this.addCommand({
-      id: 'toggle-flowing-paper-mode',
-      name: 'Toggle Flowing Paper Mode 切换沉思模式',
-      callback: () => this.toggleFlowingMode()
+      id: 'toggle-sinking-paper-mode',
+      name: 'Toggle Sinking Paper Mode 切换沉纸模式',
+      callback: () => this.toggleSinkingMode()
     });
 
     // 添加设置面板
-    this.addSettingTab(new FlowingPaperSettingTab(this.app, this));
+    this.addSettingTab(new SinkingPaperSettingTab(this.app, this));
   }
 
   async loadSettings() {
@@ -159,8 +159,8 @@ export default class FlowingPaperPlugin extends Plugin {
     await this.saveData(this.settings);
   }
 
-  toggleFlowingMode() {
-    this.isFlowingMode = !this.isFlowingMode;
+  toggleSinkingMode() {
+    this.isSinkingMode = !this.isSinkingMode;
     this.updateStatusBar();
     
     // 更新所有编辑器视图的状态
@@ -169,27 +169,27 @@ export default class FlowingPaperPlugin extends Plugin {
       const editorView = (view.editor as any).cm as EditorView;
       if (editorView) {
         editorView.dispatch({
-          effects: toggleFlowingMode.of(this.isFlowingMode)
+          effects: toggleSinkingMode.of(this.isSinkingMode)
         });
       }
     }
     
-    if (this.isFlowingMode) {
-      new Notice('✨ Flowing Paper Mode ON 沉思模式已开启');
-      document.body.addClass('flowing-paper-mode-active');
+    if (this.isSinkingMode) {
+      new Notice('✨ Sinking Paper Mode ON 沉纸模式已开启');
+      document.body.addClass('sinking-paper-mode-active');
     } else {
       new Notice('📝 Normal Mode 传统编辑模式');
-      document.body.removeClass('flowing-paper-mode-active');
+      document.body.removeClass('sinking-paper-mode-active');
     }
   }
 
   updateStatusBar() {
-    if (this.isFlowingMode) {
-      this.statusBarItem.setText('✨ Flowing 沉思');
-      this.statusBarItem.addClass('flowing-mode-active');
+    if (this.isSinkingMode) {
+      this.statusBarItem.setText('✨ Sinking 沉纸');
+      this.statusBarItem.addClass('sinking-mode-active');
     } else {
       this.statusBarItem.setText('📝 Normal 编辑');
-      this.statusBarItem.removeClass('flowing-mode-active');
+      this.statusBarItem.removeClass('sinking-mode-active');
     }
   }
 }
