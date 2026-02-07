@@ -103,6 +103,39 @@ export default class FlowingPaperPlugin extends Plugin {
 
             return true;
           }
+        },
+        {
+          key: 'Backspace',
+          run: (view: EditorView) => {
+            if (!this.isFlowingMode) return false;
+
+            const cursor = view.state.selection.main.head;
+            const line = view.state.doc.lineAt(cursor);
+            const lineText = line.text;
+            
+            // 检查当前行是否为空行
+            if (lineText.trim() === '' && cursor === line.from) {
+              // 检查是否有下一行
+              if (line.number < view.state.doc.lines) {
+                const nextLine = view.state.doc.line(line.number + 1);
+                
+                // 删除当前空行（包括换行符）
+                view.dispatch({
+                  changes: {
+                    from: line.from,
+                    to: nextLine.from
+                  },
+                  // 光标移到当前行行尾（下一行内容上移后的行尾）
+                  selection: { anchor: line.from + nextLine.text.length }
+                });
+                
+                return true;
+              }
+            }
+            
+            // 如果不是空行或没有下一行，使用默认行为
+            return false;
+          }
         }
       ]))
     ]);
