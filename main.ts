@@ -1,0 +1,158 @@
+import { Plugin, MarkdownView, Notice, editorViewField } from 'obsidian';
+import { FlowingPaperSettingTab } from './settings';
+import { FlowingPaperSettings, DEFAULT_SETTINGS } from './types';
+import { EditorView, ViewPlugin, ViewUpdate, Decoration, DecorationSet, keymap } from '@codemirror/view';
+import { StateField, StateEffect, Prec, Transaction } from '@codemirror/state';
+
+// 定义状态效果
+const toggleFlowingMode = StateEffect.define<boolean>();
+
+// 定义状态字段来跟踪模式
+const flowingModeState = StateField.define<boolean>({
+  create() {
+    return false;
+  },
+  update(value: boolean, tr: Transaction) {
+    for (let effect of tr.effects) {
+      if (effect.is(toggleFlowingMode)) {
+        return effect.value;
+      }
+    }
+    return value;
+  }
+});
+
+// 高亮当前行的装饰器
+const cursorLineHighlight = ViewPlugin.fromClass(
+  class {
+    decorations: DecorationSet;
+
+    constructor(view: EditorView) {
+      this.decorations = this.buildDecorations(view);
+    }
+
+    update(update: ViewUpdate) {
+      // 检测状态变化、文档变化、光标移动或视口变化
+      const stateChanged = update.transactions.some(tr => 
+        tr.effects.some(e => e.is(toggleFlowingMode))
+      );
+      
+      if (stateChanged || update.docChanged || update.selectionSet || update.viewportChanged) {
+        this.decorations = this.buildDecorations(update.view);
+      }
+    }
+
+    buildDecorations(view: EditorView): DecorationSet {
+      const isFlowing = view.state.field(flowingModeState, false);
+      if (!isFlowing) return Decoration.none;
+
+      const cursor = view.state.selection.main.head;
+      const line = view.state.doc.lineAt(cursor);
+      
+      const decoration = Decoration.line({
+        attributes: { class: 'flowing-paper-active-line' }
+      });
+
+      return Decoration.set([decoration.range(line.from)]);
+    }
+  },
+  {
+    decorations: (v: any) => v.decorations
+  }
+);
+
+export default class FlowingPaperPlugin extends Plugin {
+  settings: FlowingPaperSettings;
+  private isFlowingMode = false;
+  private statusBarItem: HTMLElement;
+
+  async onload() {
+    await this.loadSettings();
+
+    // 添加状态栏项
+    this.statusBarItem = this.addStatusBarItem();
+    this.updateStatusBar();
+
+    // 注册编辑器扩展
+    this.registerEditorExtension([
+      flowingModeState,
+      cursorLineHighlight,
+      Prec.highest(keymap.of([
+        {
+          key: 'Enter',
+          run: (view: EditorView) => {
+            if (!this.isFlowingMode) return false;
+
+            const cursor = view.state.selection.main.head;
+            const line = view.state.doc.lineAt(cursor);
+            
+            // 在当前行开头插入换行符，这样当前行内容会下沉
+            view.dispatch({
+              changes: {
+                from: line.from,
+                insert: '\n'
+              },
+              // 光标保持在原来的行（现在是新的空行）的行首
+              selection: { anchor: line.from }
+            });
+
+            return true;
+          }
+        }
+      ]))
+    ]);
+
+    // 添加切换命令
+    this.addCommand({
+      id: 'toggle-flowing-paper-mode',
+      name: '切换沉思模式 (Toggle Flowing Paper Mode)',
+      callback: () => this.toggleFlowingMode(),
+      hotkeys: [{ modifiers: ['Mod', 'Shift'], key: 'f' }]
+    });
+
+    // 添加设置面板
+    this.addSettingTab(new FlowingPaperSettingTab(this.app, this));
+  }
+
+  async loadSettings() {
+    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+  }
+
+  async saveSettings() {
+    await this.saveData(this.settings);
+  }
+
+  toggleFlowingMode() {
+    this.isFlowingMode = !this.isFlowingMode;
+    this.updateStatusBar();
+    
+    // 更新所有编辑器视图的状态
+    const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+    if (view) {
+      const editorView = (view.editor as any).cm as EditorView;
+      if (editorView) {
+        editorView.dispatch({
+          effects: toggleFlowingMode.of(this.isFlowingMode)
+        });
+      }
+    }
+    
+    if (this.isFlowingMode) {
+      new Notice('✨ 沉思模式已开启 - Flowing Paper Mode ON');
+      document.body.addClass('flowing-paper-mode-active');
+    } else {
+      new Notice('📝 传统编辑模式 - Normal Mode');
+      document.body.removeClass('flowing-paper-mode-active');
+    }
+  }
+
+  updateStatusBar() {
+    if (this.isFlowingMode) {
+      this.statusBarItem.setText('✨ 沉思模式');
+      this.statusBarItem.addClass('flowing-mode-active');
+    } else {
+      this.statusBarItem.setText('📝 编辑');
+      this.statusBarItem.removeClass('flowing-mode-active');
+    }
+  }
+}
