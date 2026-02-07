@@ -41,7 +41,7 @@
      "name": "Sinking Paper Mode 沉纸模式",
      "author": "Hentiflo",
      "description": "Write with a fixed cursor as content sinks down like paper in a typewriter 光标固定，内容下沉，如打字机般的写作体验",
-     "repo": "cht123456abc/obsidian-sinking-paper-mode"
+     "repo": "cht123456abc/obsidian-flowing-paper"
    }
    ```
    
