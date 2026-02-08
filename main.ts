@@ -1,4 +1,4 @@
-import { Plugin, MarkdownView, Notice, editorViewField } from 'obsidian';
+import { Plugin, MarkdownView, Notice } from 'obsidian';
 import { SinkingPaperSettingTab } from './settings';
 import { SinkingPaperSettings, DEFAULT_SETTINGS } from './types';
 import { EditorView, ViewPlugin, ViewUpdate, Decoration, DecorationSet, keymap } from '@codemirror/view';
@@ -58,7 +58,7 @@ const cursorLineHighlight = ViewPlugin.fromClass(
     }
   },
   {
-    decorations: (v: any) => v.decorations
+    decorations: (v) => v.decorations
   }
 );
 
@@ -142,8 +142,8 @@ export default class SinkingPaperPlugin extends Plugin {
 
     // 添加切换命令（快捷键在 Obsidian 设置中配置）
     this.addCommand({
-      id: 'toggle-sinking-paper-mode',
-      name: 'Toggle Sinking Paper Mode 切换沉纸模式',
+      id: 'toggle-mode',
+      name: 'Toggle sinking paper mode',
       callback: () => this.toggleSinkingMode()
     });
 
@@ -166,7 +166,7 @@ export default class SinkingPaperPlugin extends Plugin {
     // 更新所有编辑器视图的状态
     const view = this.app.workspace.getActiveViewOfType(MarkdownView);
     if (view) {
-      const editorView = (view.editor as any).cm as EditorView;
+      const editorView = (view.editor as { cm?: EditorView }).cm;
       if (editorView) {
         editorView.dispatch({
           effects: toggleSinkingMode.of(this.isSinkingMode)
@@ -175,20 +175,20 @@ export default class SinkingPaperPlugin extends Plugin {
     }
     
     if (this.isSinkingMode) {
-      new Notice('✨ Sinking Paper Mode ON 沉纸模式已开启');
+      new Notice('Sinking paper mode enabled');
       document.body.addClass('sinking-paper-mode-active');
     } else {
-      new Notice('📝 Normal Mode 传统编辑模式');
+      new Notice('Normal mode');
       document.body.removeClass('sinking-paper-mode-active');
     }
   }
 
   updateStatusBar() {
     if (this.isSinkingMode) {
-      this.statusBarItem.setText('✨ Sinking 沉纸');
+      this.statusBarItem.setText('✨ Sinking');
       this.statusBarItem.addClass('sinking-mode-active');
     } else {
-      this.statusBarItem.setText('📝 Normal 编辑');
+      this.statusBarItem.setText('📝 Normal');
       this.statusBarItem.removeClass('sinking-mode-active');
     }
   }
