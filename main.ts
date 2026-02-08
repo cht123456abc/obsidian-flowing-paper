@@ -185,10 +185,10 @@ export default class SinkingPaperPlugin extends Plugin {
 
   updateStatusBar() {
     if (this.isSinkingMode) {
-      this.statusBarItem.setText('✨ Sinking');
+      this.statusBarItem.setText('Sinking mode');
       this.statusBarItem.addClass('sinking-mode-active');
     } else {
-      this.statusBarItem.setText('📝 Normal');
+      this.statusBarItem.setText('Normal mode');
       this.statusBarItem.removeClass('sinking-mode-active');
     }
   }
