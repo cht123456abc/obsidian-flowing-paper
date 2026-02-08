@@ -14,7 +14,7 @@ export class SinkingPaperSettingTab extends PluginSettingTab {
     containerEl.empty();
 
     new Setting(containerEl)
-      .setName('Sinking paper mode settings')
+      .setName('Sinking paper mode')
       .setHeading();
 
     new Setting(containerEl)
@@ -51,7 +51,7 @@ export class SinkingPaperSettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Hotkey settings')
+      .setName('Hotkey')
       .setHeading();
     
     new Setting(containerEl)
