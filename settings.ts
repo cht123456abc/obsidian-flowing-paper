@@ -51,7 +51,7 @@ export class SinkingPaperSettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Hotkey')
+      .setName('Hotkey configuration')
       .setHeading();
     
     new Setting(containerEl)
@@ -59,7 +59,7 @@ export class SinkingPaperSettingTab extends PluginSettingTab {
       .setDesc('To customize the hotkey, go to: Settings → Hotkeys → Search "sinking paper"');
 
     new Setting(containerEl)
-      .setName('Usage')
+      .setName('Usage instructions')
       .setHeading();
     
     new Setting(containerEl)
