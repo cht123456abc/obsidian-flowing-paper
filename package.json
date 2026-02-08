@@ -1,6 +1,6 @@
 {
   "name": "obsidian-sinking-paper-mode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sinking Paper Mode plugin for Obsidian",
   "main": "main.js",
   "scripts": {

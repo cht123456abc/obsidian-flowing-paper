@@ -1,10 +1,10 @@
 {
-  "id": "sinking-paper-mode",
-  "name": "Sinking Paper Mode 沉纸模式",
-  "version": "1.0.0",
-  "minAppVersion": "0.15.0",
-  "description": "Write with a fixed cursor as content sinks down like paper in a typewriter.",
-  "author": "Hentiflo",
-  "authorUrl": "https://github.com/cht123456abc",
-  "isDesktopOnly": false
+	"id": "sinking-paper-mode",
+	"name": "Sinking Paper Mode 沉纸模式",
+	"version": "1.0.1",
+	"minAppVersion": "0.15.0",
+	"description": "Write with a fixed cursor as content sinks down like paper in a typewriter.",
+	"author": "Hentiflo",
+	"authorUrl": "https://github.com/cht123456abc",
+	"isDesktopOnly": false
 }
