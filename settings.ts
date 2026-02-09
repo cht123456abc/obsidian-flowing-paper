@@ -42,7 +42,7 @@ export class SinkingPaperSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Enable sound')
-      .setDesc('Play typewriter sound on Enter')
+      .setDesc('Play typewriter sound on enter')
       .addToggle(toggle => toggle
         .setValue(this.plugin.settings.enableSound)
         .onChange(async (value) => {
@@ -51,17 +51,9 @@ export class SinkingPaperSettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Configure hotkey')
-      .setHeading();
-    
-    new Setting(containerEl)
       .setName('Customize hotkey')
       .setDesc('To customize the hotkey, go to: Settings → Hotkeys → Search "sinking paper"');
 
-    new Setting(containerEl)
-      .setName('How to use')
-      .setHeading();
-    
     new Setting(containerEl)
       .setName('How to use')
       .setDesc('Press your custom hotkey or click status bar to toggle. In sinking mode, cursor stays fixed and content sinks down. Blue highlight bar marks current editing position.');
